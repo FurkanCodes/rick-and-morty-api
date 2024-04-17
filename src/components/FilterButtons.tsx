@@ -1,4 +1,3 @@
-import React from "react";
 import { FILTER_OPTIONS } from "../constants/constants";
 
 interface FilterButtonsProps {

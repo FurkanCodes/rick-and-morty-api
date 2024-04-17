@@ -1,10 +1,10 @@
 .location-cards-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); // Creates 6 columns of equal width
-  grid-gap: 2rem; // Spacing between cards
-  padding: 20px; // Padding around the grid
-  max-width: 100%; // Ensure the container takes the full width of its parent
-  margin: 0 auto; // Center the grid
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 2rem;
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .location-card {
@@ -14,39 +14,59 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   cursor: pointer;
-  position: relative; // Needed for the text offset
-  height: auto; //
+  position: relative;
+  height: auto;
 
   &:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transform: translateX(-10px); // Offset the card to the left
+    transform: translateX(-10px);
   }
+}
 
-  .text {
-    display: block;
-    text-decoration: none;
-
-    transition: color 0.3s ease, transform 0.5s ease; // Adjusted transition duration for smoother effect
-    position: relative; // Needed for the text offset
-
-    &:hover {
-      color: #5484ff;
-      transform: translateX(10px); // Offset the text to the right
-    }
-    a {
-      color: #ffffff; /* Or any color you prefer */
-      text-decoration: none; /* Optional: remove underline */
-    }
-
-    h3 {
-      margin-top: 0;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    p {
-      margin-top: 10px;
-      font-size: 14px;
-    }
+/* Responsive styles */
+@media (max-width: 768px) {
+  .location-cards-container {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+@media (max-width: 480px) {
+  .location-cards-container {
+    grid-template-columns: repeat(1, 1fr);
+    width: 25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-cards-container {
+    grid-template-columns: repeat(1, 1fr);
+    width: 25rem;
+  }
+}
+.text {
+  display: block;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.5s ease;
+  position: relative;
+
+  &:hover {
+    color: #5484ff;
+    transform: translateX(10px);
+  }
+}
+
+.text a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.text h3 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.text p {
+  margin-top: 10px;
+  font-size: 14px;
 }

@@ -21,12 +21,12 @@ a:hover {
 }
 
 body {
-  margin: 0; /* Ensure no margin */
+  margin: 0;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  min-height: 100vh; /* Full viewport height */
-  padding: 0; /* No padding */
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
 }
 
 h1 {
@@ -63,5 +63,26 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.4em; /* Adjust font size for smaller screens */
+  }
+  button {
+    padding: 0.4em 0.8em; /* Adjust padding for smaller screens */
+    font-size: 0.9em; /* Adjust font size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2em; /* Further adjust font size for very small screens */
+  }
+  button {
+    padding: 0.3em 0.6em; /* Further adjust padding for very small screens */
+    font-size: 0.8em; /* Further adjust font size for very small screens */
   }
 }

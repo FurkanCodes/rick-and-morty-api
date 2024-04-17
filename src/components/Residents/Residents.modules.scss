@@ -1,9 +1,39 @@
-.residentsContainer {
+.residentsContainer,
+.relatedResidents {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 2rem;
   justify-content: center;
   align-content: center;
+}
+
+/* Responsive grid layout adjustments */
+@media (max-width: 1200px) {
+  .residentsContainer,
+  .relatedResidents {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .residentsContainer,
+  .relatedResidents {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .residentsContainer,
+  .relatedResidents {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .residentsContainer,
+  .relatedResidents {
+    grid-template-columns: 1fr;
+  }
 }
 
 .residentCard {
