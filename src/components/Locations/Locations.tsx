@@ -12,7 +12,6 @@ function Locations() {
   const { results, info } = useAppSelector((state) => state.location.locations);
   const [currentPage, setCurrentPage] = useState<number>(1); // State for current page
 
-  // Fetch location data based on current page
   useEffect(() => {
     dispatch(fetchLocationData(currentPage));
   }, [dispatch, currentPage]);

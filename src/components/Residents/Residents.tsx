@@ -4,20 +4,17 @@ import { fetchResidentsByLocation } from "../Locations/LocationSlice";
 import { Link, useParams } from "react-router-dom";
 import Pagination from "../Pagination/Pagination";
 import "./Residents.modules.scss";
-import { addFavorite } from "../Favorites/favoritesSlice";
 import NotFound from "../../pages/NotFound";
 import { RootState } from "../../redux/store";
-import {
-  FAVORITE_BUTTON_CLASSES,
-  FAVORITE_BUTTON_LABELS,
-  FILTER_OPTIONS,
-} from "../../constants/constants";
+import { FILTER_OPTIONS } from "../../constants/constants";
 import { getStatusClass } from "../../utils/utils";
 import FilterButtons from "../FilterButtons";
+import { addFavorite, removeFavorite } from "../Favorites/favoritesSlice";
 
 const Residents: React.FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
+
   const { residents, isLoading } = useAppSelector(
     (state: RootState) => state.location
   );
@@ -44,14 +41,11 @@ const Residents: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const filteredResidents = residents.filter((resident) => {
+  const filteredResidents = residents.filter(() => {
     if (filter === FILTER_OPTIONS.ALL) return true;
-    if (filter === FILTER_OPTIONS.DEAD && resident.status === "Dead")
-      return true;
-    if (filter === FILTER_OPTIONS.ALIVE && resident.status === "Alive")
-      return true;
-    if (filter === FILTER_OPTIONS.UNKNOWN && resident.status === "unknown")
-      return true;
+    if (filter === FILTER_OPTIONS.DEAD) return true;
+    if (filter === FILTER_OPTIONS.ALIVE) return true;
+    if (filter === FILTER_OPTIONS.UNKNOWN) return true;
     return false;
   });
 
@@ -64,40 +58,35 @@ const Residents: React.FC = () => {
     indexOfLastResident
   );
 
+  const handleFavoriteClick = (resident: any) => {
+    if (favorites.some((fav) => fav.id === resident.id)) {
+      dispatch(removeFavorite(resident.id));
+    } else {
+      dispatch(addFavorite(resident));
+    }
+  };
+
   return (
     <div>
       <FilterButtons setFilter={setFilter} />
       <div className="residentsContainer">
         {currentResidents.map((resident) => (
-          <Link
-            key={resident.id}
-            to={`/residents/${resident.id}`}
-            className="residentCard"
-          >
-            <h3>{resident.name}</h3>
-            <p className={getStatusClass(resident.status)}>
-              Status: {resident.status}
-            </p>
-            <img src={resident.image} alt={resident.name} />
-            <button
-              onClick={(e) => {
-                e.stopPropagation(); //favoriye ekledğinde propagate edip linke gitmesini engeller
-                dispatch(addFavorite(resident));
-              }}
-              className={
-                favorites.some((fav) => fav.id === resident.id)
-                  ? FAVORITE_BUTTON_CLASSES.ACTIVE
-                  : FAVORITE_BUTTON_CLASSES.INACTIVE
-              }
-            >
+          <div className="residentCard" key={resident.id}>
+            <Link to={`/residents/${resident.id}`}>
+              <h3>{resident.name}</h3>
+              <p className={getStatusClass(resident.status)}>
+                Status: {resident.status}
+              </p>
+              <img src={resident.image} alt={resident.name} />
+            </Link>
+            <button onClick={() => handleFavoriteClick(resident)}>
               {favorites.some((fav) => fav.id === resident.id)
-                ? FAVORITE_BUTTON_LABELS.REMOVE
-                : FAVORITE_BUTTON_LABELS.ADD}
+                ? "Remove from Favorites"
+                : "Add to Favorites"}
             </button>
-          </Link>
+          </div>
         ))}
         <div className="notfound">
-          {" "}
           {filteredResidents.length === 0 ? <NotFound /> : null}
         </div>
       </div>

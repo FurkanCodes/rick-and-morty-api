@@ -27,7 +27,6 @@ export const fetchResidentsByLocation = createAsyncThunk<Location[], string>(
       const locationData = locationResponse.data;
       const residentUrls = locationData.residents;
 
-      // Maps residents in the response
       const residents = await Promise.all(
         residentUrls.map(async (url: string) => {
           const residentResponse = await axios.get<Location>(url); // Assuming each resident is a Location object
