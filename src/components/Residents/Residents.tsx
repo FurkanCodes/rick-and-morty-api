@@ -10,7 +10,6 @@ import { FILTER_OPTIONS } from "../../constants/constants";
 import { getStatusClass } from "../../utils/utils";
 import FilterButtons from "../FilterButtons";
 import { addFavorite, removeFavorite } from "../Favorites/favoritesSlice";
-import { useToggleFavorite } from "../../hooks/useToggleFavorite";
 
 const Residents: React.FC = () => {
   const dispatch = useAppDispatch();
