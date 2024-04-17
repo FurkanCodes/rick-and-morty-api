@@ -1,0 +1,30 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+.pagination button {
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 0 0 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #3b3b3b;
+  }
+
+  &:disabled {
+    background-color: #3b3b3b;
+    cursor: not-allowed;
+  }
+}
+
+.pagination button.current-page {
+  background-color: #3b3b3b; // Or any color you prefer for the current page
+  color: white; // Ensure text is readable against the background
+}

@@ -1,0 +1,52 @@
+.location-cards-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); // Creates 6 columns of equal width
+  grid-gap: 2rem; // Spacing between cards
+  padding: 20px; // Padding around the grid
+  max-width: 100%; // Ensure the container takes the full width of its parent
+  margin: 0 auto; // Center the grid
+}
+
+.location-card {
+  background-color: #656565;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  position: relative; // Needed for the text offset
+  height: auto; //
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateX(-10px); // Offset the card to the left
+  }
+
+  .text {
+    display: block;
+    text-decoration: none;
+
+    transition: color 0.3s ease, transform 0.5s ease; // Adjusted transition duration for smoother effect
+    position: relative; // Needed for the text offset
+
+    &:hover {
+      color: #5484ff;
+      transform: translateX(10px); // Offset the text to the right
+    }
+    a {
+      color: #ffffff; /* Or any color you prefer */
+      text-decoration: none; /* Optional: remove underline */
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  }
+}
