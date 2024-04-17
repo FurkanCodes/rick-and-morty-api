@@ -29,7 +29,7 @@ export const fetchResidentsByLocation = createAsyncThunk<Location[], string>(
 
       const residents = await Promise.all(
         residentUrls.map(async (url: string) => {
-          const residentResponse = await axios.get<Location>(url); // Assuming each resident is a Location object
+          const residentResponse = await axios.get<Location>(url);
           return residentResponse.data;
         })
       );

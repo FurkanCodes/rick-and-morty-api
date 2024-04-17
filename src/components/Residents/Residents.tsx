@@ -10,6 +10,7 @@ import { FILTER_OPTIONS } from "../../constants/constants";
 import { getStatusClass } from "../../utils/utils";
 import FilterButtons from "../FilterButtons";
 import { addFavorite, removeFavorite } from "../Favorites/favoritesSlice";
+import { useToggleFavorite } from "../../hooks/useToggleFavorite";
 
 const Residents: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -40,12 +41,14 @@ const Residents: React.FC = () => {
   if (isLoading === "pending") {
     return <div>Loading...</div>;
   }
-
-  const filteredResidents = residents.filter(() => {
+  const filteredResidents = residents.filter((resident) => {
     if (filter === FILTER_OPTIONS.ALL) return true;
-    if (filter === FILTER_OPTIONS.DEAD) return true;
-    if (filter === FILTER_OPTIONS.ALIVE) return true;
-    if (filter === FILTER_OPTIONS.UNKNOWN) return true;
+    if (filter === FILTER_OPTIONS.DEAD && resident.status === "Dead")
+      return true;
+    if (filter === FILTER_OPTIONS.ALIVE && resident.status === "Alive")
+      return true;
+    if (filter === FILTER_OPTIONS.UNKNOWN && resident.status === "unknown")
+      return true;
     return false;
   });
 
