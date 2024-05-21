@@ -5,30 +5,55 @@ import { useAppSelector } from "../../redux/store";
 import SimilarResidents from "./SimilarResidents";
 import { addFavorite, removeFavorite } from "../Favorites/favoritesSlice";
 
+
+interface Resident {
+  id: string | number;
+  name: string;
+  status: string;
+  image: string;
+  gender: string;
+  species: string;
+  location: {
+    name: string;
+  };
+  origin: {
+    name: string;
+  };
+  type?: string; // Optional property
+}
+
+
+interface RootState {
+  location: {
+    residents: Resident[];
+  };
+  favorites: {
+    favorites: Resident[];
+  };
+}
+
+
+
 function ResidentCard() {
-  const { id } = useParams();
-  const residents = useAppSelector((state) => state.location.residents);
+  const { id } = useParams<{ id: string }>();
+  const residents = useAppSelector((state: RootState) => state.location.residents);
   const resident = residents.find((resident) => resident.id.toString() === id);
   const dispatch = useDispatch();
 
-  // Resident favorilere ekli mi değil mi?
-  const favorites = useAppSelector((state) => state.favorites.favorites);
-  const isFavorite = favorites.some((favorite) => favorite.id === resident.id);
+  const favorites = useAppSelector((state: RootState) => state.favorites.favorites);
+  const isFavorite = favorites.some((favorite) => favorite.id === resident?.id);
 
   if (!resident) {
     return <div>Character not found</div>;
   }
 
-  // Aynı status ve location olan residentleri filtrele
-  // component kendinide filtelediği için "no resident found" çalışmıyordu
   const filteredResidents = residents.filter(
     (r) =>
       r.status === resident.status &&
       r.location.name === resident.location.name &&
-      r.id !== resident.id // Ensure the current resident is not included
+      r.id!== resident.id
   );
 
-  // Favori durumunu ekle kaldır
   const toggleFavorite = () => {
     if (isFavorite) {
       dispatch(removeFavorite(resident.id));
